@@ -2,8 +2,8 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
   LayoutDashboard, 
-  Repeat, 
-  Activity, 
+  
+  
   Wallet, 
   User, 
   CreditCard, 
@@ -11,10 +11,10 @@ import {
   FileText, 
   Users, 
   Headphones, 
-  Landmark, 
+  
   LogOut,
   Bell,
-  Search
+  
 } from "lucide-react";
 import { Logo } from "./Brand";
 import { toast } from "sonner";
@@ -35,18 +35,14 @@ export function DashboardLayout({ children, headerTitle = "Dashboard", headerAct
   };
 
   const menuItems = [
-    { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/dashboard" },
-    { icon: <Repeat size={20} />, label: "Instant Buy/Sell", path: "/buysell" },
-    { icon: <Activity size={20} />, label: "Market", path: "/markets" },
+    { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/dashboard" },    
     { icon: <Wallet size={20} />, label: "Wallet", path: "/wallet" },
     { icon: <User size={20} />, label: "My Account", path: "/profile" },
-    { icon: <CreditCard size={20} />, label: "Cards", path: "/card" },
     { icon: <CreditCard size={20} />, label: "Physical Cards", path: "/physicalcard" },
     { icon: <FileText size={20} />, label: "KYC/KYB", path: "/kyc" },
     { icon: <Users size={20} />, label: "Referral", path: "/referral" },
     { icon: <History size={20} />, label: "History", path: "/deposithistory" },
     { icon: <Headphones size={20} />, label: "Support", path: "/support" },
-    { icon: <Landmark size={20} />, label: "Bank", path: "/bank" },
   ];
 
   return (

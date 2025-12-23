@@ -6,6 +6,10 @@ import { AdminDashboard } from "./components/AdminDashboard";
 import { AddCardPage } from "./components/AddCardPage";
 import { WalletPage } from "./components/WalletPage";
 import { ProfilePage } from "./components/ProfilePage";
+import { KYCPage } from "./components/KYCPage";
+import { ReferralPage } from "./components/ReferralPage";
+import { DepositHistoryPage } from "./components/DepositHistoryPage";
+import { SupportPage } from "./components/SupportPage";
 import { Toaster, toast } from "sonner";
 
 function AppRoutes() {
@@ -62,6 +66,26 @@ function AppRoutes() {
         <Route 
           path="/profile" 
           element={<ProfilePage />} 
+        />
+        <Route 
+          path="/physicalcard" 
+          element={<AddCardPage />} 
+        />
+        <Route 
+          path="/kyc" 
+          element={<KYCPage />} 
+        />
+        <Route 
+          path="/referral" 
+          element={<ReferralPage />} 
+        />
+        <Route 
+          path="/deposithistory" 
+          element={<DepositHistoryPage />} 
+        />
+        <Route 
+          path="/support" 
+          element={<SupportPage />} 
         />
         <Route 
           path="/admin" 

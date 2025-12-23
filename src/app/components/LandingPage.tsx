@@ -144,10 +144,7 @@ export function LandingPage({ onGetStarted, onAdminAccess }: { onGetStarted: () 
                   The infrastructure for the next generation of global capital movement. 
                   Engineered with precision.
                </p>
-               <div className="flex items-center gap-2 text-black/60 font-medium">
-                  <Mail size={16} />
-                  <span>info@nodely.pro</span>
-               </div>
+               
             </div>
             <FooterCol title="Platform" links={["Personal", "Business", "Enterprise"]} />
             <FooterCol title="Company" links={["About", "Careers", "Contact"]} />
