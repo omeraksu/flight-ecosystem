@@ -53,8 +53,8 @@ const AREA_CODES = [
 ];
 
 const CARD_TYPES = [
-  { value: "mastercard", label: "MasterCard" },
-  { value: "visa", label: "Visa", disabled: true },
+  
+  { value: "visa", label: "Visa" },
 ];
 
 const TOWNS = [
