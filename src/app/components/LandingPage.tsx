@@ -144,7 +144,6 @@ export function LandingPage({ onGetStarted, onAdminAccess }: { onGetStarted: () 
                   The infrastructure for the next generation of global capital movement. 
                   Engineered with precision.
                </p>
-               
             </div>
             <FooterCol title="Platform" links={["Personal", "Business", "Enterprise"]} />
             <FooterCol title="Company" links={["About", "Careers", "Contact"]} />
