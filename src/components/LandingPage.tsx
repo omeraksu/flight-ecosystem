@@ -1,7 +1,23 @@
 import React, { useState } from "react";
+import { motion } from "motion/react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Logo } from "./Brand";
 import chipImg from "../assets/chip.png";
+
+const heroContainerVariants = {
+  initial: {},
+  animate: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.08 },
+  },
+};
+const heroItemVariants = {
+  initial: { opacity: 0, y: 24 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
 
 const FAQ_ITEMS = [
   {
@@ -50,23 +66,86 @@ export function LandingPage({
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-64 pb-32 px-6 flex flex-col items-center text-center max-w-7xl mx-auto">
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-[1.0] mb-8">
-          Spend your crypto. <br />
-          <span className="text-[#990FFA]">No conversion.</span>
-        </h1>
+      <section className="relative pt-64 pb-32 px-6 overflow-hidden">
+        {/* Background orbs – slow movement */}
+        <motion.div
+          className="absolute -z-10 top-1/4 -left-32 w-[400px] h-[400px] rounded-full bg-[#990FFA]/15 blur-[100px]"
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -z-10 bottom-1/4 -right-32 w-[350px] h-[350px] rounded-full bg-[#990FFA]/10 blur-[90px]"
+          animate={{ x: [0, -25, 0], y: [0, 15, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#990FFA]/5 blur-[80px]"
+          animate={{ scale: [1, 1.15, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-        <p className="text-xl md:text-2xl text-neutral-400 max-w-3xl font-medium mb-12 leading-relaxed">
-          Fund your card with crypto and spend it directly—globally, securely, and without converting to fiat. Flight Debit keeps you in control.
-        </p>
-
-        <button
-          onClick={handleGetStarted}
-          className="bg-[#990FFA] text-white px-10 py-4 rounded-lg text-lg font-bold flex items-center gap-4 hover:bg-[#880FE8] transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#990FFA]/20"
+        <motion.div
+          className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          initial="initial"
+          animate="animate"
+          variants={heroContainerVariants}
         >
-          Get Started
-          <ArrowUpRight size={20} />
-        </button>
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+            <motion.h1
+              className="text-6xl md:text-8xl font-bold tracking-tighter leading-[1.0] mb-8"
+              variants={heroItemVariants}
+            >
+              Spend your crypto. <br />
+              <span
+                className="text-[#990FFA] inline-block"
+                style={{ textShadow: "0 0 40px rgba(153,15,250,0.4)" }}
+              >
+                No conversion.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="text-xl md:text-2xl text-neutral-400 max-w-3xl font-medium mb-12 leading-relaxed"
+              variants={heroItemVariants}
+            >
+              Fund your card with crypto and spend it directly—globally, securely, and without converting to fiat. Flight Debit keeps you in control.
+            </motion.p>
+
+            <motion.div variants={heroItemVariants}>
+              <motion.button
+                onClick={handleGetStarted}
+                className="bg-[#990FFA] text-white px-10 py-4 rounded-lg text-lg font-bold flex items-center gap-4 hover:bg-[#880FE8] transition-colors active:scale-95 shadow-lg shadow-[#990FFA]/20"
+                whileHover={{ scale: 1.05, boxShadow: "0 0 40px -5px rgba(153,15,250,0.5)" }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Get Started
+                <ArrowUpRight size={20} />
+              </motion.button>
+            </motion.div>
+          </div>
+
+          {/* Floating card */}
+          <motion.div
+            className="hidden lg:flex justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              animate={{ y: [0, -18, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-block scale-125 rounded-2xl"
+              style={{
+                boxShadow:
+                  "0 16px 32px -8px rgba(153,15,250,0.25), " +
+                  "-10px 10px 24px -8px rgba(153,15,250,0.12), " +
+                  "10px 10px 24px -8px rgba(153,15,250,0.12)",
+              }}
+            >
+              <CardPreview cardNumber="4242 4242 4242 4242" className="shadow-none" />
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -113,17 +192,14 @@ export function LandingPage({
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-6">
               <ControlCard
-                color="bg-[#1A1A1A]"
                 title="USDT/USDC on BNB"
                 desc="We bridge the gap between cryptocurrency and traditional payments, allowing you to spend your USDT/USDC anywhere VISA is accepted worldwide."
               />
               <ControlCard
-                color="bg-[#1A1A1A]"
                 title="Freeze your card"
                 desc="Turn spending on or off in an instant. Freeze your card anytime from the dashboard for extra peace of mind."
               />
               <ControlCard
-                color="bg-[#1A1A1A]"
                 title="Transaction history"
                 desc="See every transaction in one place. Full visibility over your spending and card activity."
               />
@@ -387,11 +463,14 @@ function FeatureItem({ title, desc }: { title: string; desc: string }) {
   );
 }
 
-function ControlCard({ color, title, desc }: { color: string; title: string; desc: string }) {
+function ControlCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className={`${color} p-12 rounded-xl flex flex-col gap-6 hover:scale-[1.02] transition-transform cursor-pointer border border-neutral-700/50`}>
-      <h4 className="text-4xl font-bold tracking-tight text-white">{title}</h4>
-      <p className="text-2xl font-medium text-neutral-300">{desc}</p>
+    <div className="rounded-[40px] border border-neutral-800 bg-[#1A1A1A] p-8 md:p-10 relative overflow-hidden flex flex-col gap-6 hover:scale-[1.02] transition-transform cursor-pointer">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#990FFA]/5 via-transparent to-transparent pointer-events-none rounded-[40px]" />
+      <div className="relative z-10">
+        <h4 className="text-4xl font-bold tracking-tight text-white">{title}</h4>
+        <p className="text-2xl font-medium text-neutral-300">{desc}</p>
+      </div>
     </div>
   );
 }
