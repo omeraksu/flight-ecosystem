@@ -92,7 +92,7 @@ export function LandingPage({
         >
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <motion.h1
-              className="text-6xl md:text-8xl font-bold tracking-tighter leading-[1.0] mb-8"
+              className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.0] mb-8"
               variants={heroItemVariants}
             >
               Spend your crypto. <br />
@@ -105,7 +105,7 @@ export function LandingPage({
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-neutral-400 max-w-3xl font-medium mb-12 leading-relaxed"
+              className="text-lg md:text-xl text-neutral-400 max-w-3xl font-medium mb-12 leading-relaxed"
               variants={heroItemVariants}
             >
               Fund your card with crypto and spend it directly—globally, securely, and without converting to fiat. Flight Debit keeps you in control.
@@ -114,7 +114,7 @@ export function LandingPage({
             <motion.div variants={heroItemVariants}>
               <motion.button
                 onClick={handleGetStarted}
-                className="bg-[#990FFA] text-white px-10 py-4 rounded-lg text-lg font-bold flex items-center gap-4 hover:bg-[#880FE8] transition-colors active:scale-95 shadow-lg shadow-[#990FFA]/20"
+                className="bg-[#990FFA] text-white px-10 py-4 rounded-lg text-base font-bold flex items-center gap-4 hover:bg-[#880FE8] transition-colors active:scale-95 shadow-lg shadow-[#990FFA]/20"
                 whileHover={{ scale: 1.05, boxShadow: "0 0 40px -5px rgba(153,15,250,0.5)" }}
                 whileTap={{ scale: 0.98 }}
               >
