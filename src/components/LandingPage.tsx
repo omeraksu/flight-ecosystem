@@ -1,14 +1,32 @@
-import React from "react";
-import { ArrowUpRight, Github } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Logo } from "./Brand";
+import chipImg from "../assets/chip.png";
 
-function XIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
+const FAQ_ITEMS = [
+  {
+    id: "01",
+    question: "How does the card program work?",
+    answer: "Flight Cards let you spend crypto-funded balances instantly with any merchant that accepts VISA, either online or in-person. You can use them to pay, tap, or withdraw cash—making your crypto instantly spendable worldwide.",
+    steps: null as string[] | null,
+  },
+  {
+    id: "02",
+    question: "How do I order a Flight Card?",
+    answer: "You can get started in just 3 simple steps.",
+    steps: [
+      "Sign up, verify your email, and complete KYC.",
+      "Once your KYC is approved, order your card. Cards are shipped to your address. You can activate your physical card directly from your dashboard upon delivery.",
+      "Deposit USDT/USDC on BNB Chain into your dashboard wallet and top up your card. Your balance is converted to FIAT instantly and ready to spend.",
+    ],
+  },
+  {
+    id: "03",
+    question: "Which cryptocurrencies are supported?",
+    answer: "You can deposit USDT/USDC on BNB Chain into your account and top up your card directly.",
+    steps: null as string[] | null,
+  },
+];
 
 export function LandingPage({
   onGetStarted,
@@ -16,6 +34,7 @@ export function LandingPage({
   onGetStarted?: () => void;
 } = {}) {
   const handleGetStarted = () => onGetStarted?.();
+  const [faqIndex, setFaqIndex] = useState(0);
 
   return (
     <div className="bg-black min-h-screen font-['Onest',sans-serif] text-white selection:bg-[#990FFA] selection:text-white">
@@ -77,7 +96,7 @@ export function LandingPage({
             <div className="relative z-10">
               <FeatureItem
                 title="Full Control in One Place"
-                desc="Manage limits, freeze your card, view transaction history, and update your PIN from a single dashboard—whenever you need to."
+                desc="Freeze your card, view transaction history, and update your PIN from a single dashboard—whenever you need to."
               />
             </div>
           </div>
@@ -95,8 +114,8 @@ export function LandingPage({
             <div className="space-y-6">
               <ControlCard
                 color="bg-[#1A1A1A]"
-                title="Limit management"
-                desc="Set and adjust spending limits so you stay in control of how and where your card is used."
+                title="USDT/USDC on BNB"
+                desc="We bridge the gap between cryptocurrency and traditional payments, allowing you to spend your USDT/USDC anywhere VISA is accepted worldwide."
               />
               <ControlCard
                 color="bg-[#1A1A1A]"
@@ -132,12 +151,32 @@ export function LandingPage({
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-32 px-8">
-        <div className="max-w-7xl mx-auto rounded-[40px] p-16 md:p-24 text-center text-white relative overflow-hidden border border-neutral-800 bg-[#1A1A1A]">
-          {/* Subtle purple glow */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#990FFA]/5 via-transparent to-transparent pointer-events-none" />
-          {/* Background logo – çapraz, soluk görünüm */}
+      {/* Call to Action – fintech / neon */}
+      <section className="py-32 px-8 relative">
+        {/* Section arka plan: hafif mor mesh */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#990FFA]/10 blur-[120px] rounded-full" />
+        </div>
+
+        <div
+          className="max-w-7xl mx-auto rounded-[40px] p-16 md:p-24 text-center text-white relative overflow-hidden
+            bg-gradient-to-b from-[#1A1A2E] to-[#12121A]
+            border border-[#990FFA]/30
+            shadow-[0_0_60px_-12px_rgba(153,15,250,0.35),inset_0_1px_0_0_rgba(255,255,255,0.05)]
+            md:transition-all md:duration-300 md:hover:border-[#990FFA]/50 md:hover:shadow-[0_0_80px_-12px_rgba(153,15,250,0.45),inset_0_1px_0_0_rgba(255,255,255,0.08)] md:hover:scale-[1.01]"
+        >
+          {/* Neon gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#990FFA]/15 via-[#990FFA]/5 to-transparent pointer-events-none rounded-[40px]" />
+          {/* Hafif grid doku (isteğe bağlı) */}
+          <div
+            className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-[40px]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+                                linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)`,
+              backgroundSize: "48px 48px",
+            }}
+          />
+          {/* Background logo */}
           <div
             className="absolute top-16 right-0 p-12 flex items-center justify-center pointer-events-none opacity-20"
             aria-hidden
@@ -155,7 +194,10 @@ export function LandingPage({
             </h2>
             <button
               onClick={handleGetStarted}
-              className="bg-[#990FFA] text-white px-12 py-5 rounded-xl text-xl font-bold hover:bg-[#880FE8] transition-all active:scale-95 shadow-lg shadow-[#990FFA]/25"
+              className="bg-[#990FFA] text-white px-12 py-5 rounded-xl text-xl font-bold
+                transition-all duration-300 active:scale-95
+                shadow-[0_0_30px_-5px_rgba(153,15,250,0.5)]
+                md:hover:bg-[#a83aff] md:hover:shadow-[0_0_40px_-5px_rgba(153,15,250,0.6)] md:hover:scale-105"
             >
               Get Started
             </button>
@@ -163,36 +205,136 @@ export function LandingPage({
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-24 px-8 border-t border-neutral-800">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-16">
-          <div>
-            <Logo className="mb-8" />
-            <p className="text-neutral-400 max-w-xs font-medium mb-8">
-              Flight Debit by Ziyuno. A secure way to spend your crypto globally—deposit, manage, and pay with the assets you hold.
-            </p>
+      {/* FAQ – Slider */}
+      <section className="py-24 px-8 border-t border-neutral-800 bg-black">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">FAQ</h2>
           </div>
-          <div className="md:shrink-0">
-          <FooterCol
-            title="Legal"
-            links={[
-              { label: "User Agreement", href: "/legal#user-agreement" },
-              { label: "Privacy Policy", href: "/legal#privacy-policy" },
-              { label: "Information Security", href: "/legal#information-security" },
-              { label: "Cookies & Legal Notices", href: "/legal#cookies-legal" },
-            ]}
-          />
+
+          <div className="relative">
+            {/* Slider container */}
+            <div className="overflow-hidden rounded-2xl">
+              <div
+                className="flex transition-transform duration-300 ease-out"
+                style={{ transform: `translateX(-${faqIndex * 100}%)` }}
+              >
+                {FAQ_ITEMS.map((item) => (
+                  <div key={item.id} className="w-full flex-shrink-0 px-1 flex justify-center">
+                    <div className="w-full max-w-2xl rounded-2xl border border-neutral-800 bg-[#1A1A1A] p-8 md:p-10 relative overflow-hidden hover:border-neutral-700 transition-colors">
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#990FFA]/5 via-transparent to-transparent pointer-events-none rounded-2xl" />
+                      <div className="relative">
+                        <span className="text-[#990FFA] text-xs font-semibold tracking-widest uppercase">{item.id}</span>
+                        <h3 className="text-xl font-bold text-white mt-2 mb-4">{item.question}</h3>
+                        <p className="text-neutral-400 leading-relaxed text-[15px] mb-5">{item.answer}</p>
+                        {item.steps && (
+                          <ol className="space-y-4 list-none">
+                            {item.steps.map((step, i) => (
+                              <li key={i} className="flex gap-4">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#990FFA]/20 text-[#990FFA] text-xs font-bold flex items-center justify-center">
+                                  {i + 1}
+                                </span>
+                                <span className="text-neutral-400 leading-relaxed text-[15px]">{step}</span>
+                              </li>
+                            ))}
+                          </ol>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Prev / Next */}
+            <div className="flex items-center justify-center gap-6 mt-8">
+              <button
+                type="button"
+                onClick={() => setFaqIndex((i) => (i === 0 ? FAQ_ITEMS.length - 1 : i - 1))}
+                className="p-2 rounded-full border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors"
+                aria-label="Previous question"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <div className="flex gap-2">
+                {FAQ_ITEMS.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setFaqIndex(i)}
+                    className={`h-2 rounded-full transition-all ${i === faqIndex ? "w-8 bg-[#990FFA]" : "w-2 bg-neutral-600 hover:bg-neutral-500"
+                      }`}
+                    aria-label={`Go to question ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setFaqIndex((i) => (i === FAQ_ITEMS.length - 1 ? 0 : i + 1))}
+                className="p-2 rounded-full border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors"
+                aria-label="Next question"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-sm font-medium text-neutral-500">© 2026 Flight Debit. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-neutral-400 hover:text-white transition-colors" aria-label="X">
-              <XIcon size={20} />
-            </a>
-            <a href="#" className="text-neutral-400 hover:text-white transition-colors" aria-label="GitHub">
-              <Github size={20} />
-            </a>
+      </section>
+
+      {/* Footer – px-6 ile yatay boşluk, içerik ortada */}
+      <footer className="relative z-0 border-t border-white/10 bg-black px-6 py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
+            <div className="lg:col-span-2 flex flex-col items-start">
+              <a className="inline-block mb-6" href="/">
+                <Logo className="h-9 w-auto object-contain" />
+              </a>
+              <p className="text-base text-gray-400 leading-relaxed mb-6">
+                A secure way to spend your crypto globally—deposit, manage, and pay with the assets you hold.              </p>
+            </div>
+            <div className="lg:col-span-1">
+              <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider text-white">Resources</h3>
+              <nav className="flex flex-col gap-4">
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base text-gray-400 transition-colors duration-300 hover:text-white"
+                >
+                  Media Kit
+                </a>
+              </nav>
+            </div>
+            <div className="lg:col-span-1">
+              <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
+              <div className="flex flex-col gap-4">
+                <a href="mailto:support@flightdebit.com" className="text-base text-gray-400 transition-colors duration-300 hover:text-white">
+                support@flightdebit.com
+                </a>
+              </div>
+            </div>
+            <div className="lg:col-span-1">
+              <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider text-white">Legal</h3>
+              <nav className="flex flex-col gap-4">
+                <a className="text-base text-gray-400 transition-colors duration-300 hover:text-white" href="/legal#cookies-legal">
+                  Cookies and Legal Notice
+                </a>
+                <a className="text-base text-gray-400 transition-colors duration-300 hover:text-white" href="/legal#information-security">
+                  Information Security
+                </a>
+                <a className="text-base text-gray-400 transition-colors duration-300 hover:text-white" href="/legal#privacy-policy">
+                  Privacy Policy
+                </a>
+                <a className="text-base text-gray-400 transition-colors duration-300 hover:text-white" href="/legal#user-agreement">
+                  User Agreement
+                </a>
+              </nav>
+            </div>
+          </div>
+          <div className="mt-16 border-t border-white/10 pt-8">
+            <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+              <p className="text-sm text-gray-500">© 2026 Flight Debit. All rights reserved.</p>
+            </div>
           </div>
         </div>
       </footer>
@@ -214,11 +356,9 @@ function CardPreview({ cardNumber, className = "" }: { cardNumber: string; class
 
       <div className="relative p-5 h-full flex flex-col justify-between">
         <div className="flex justify-between items-start">
-          {/* Chip / logo placeholder */}
-          <div className="w-10 h-10 rounded-lg bg-white/10" />
-          <span className="bg-[#22C55E] text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
-            ACTIVE
-          </span>
+          {/* Chip */}
+          <img src={chipImg} alt="" className="w-10 h-10 rounded-lg object-cover" />
+          <Logo className="h-[25px] w-auto" />
         </div>
 
         <p className="text-white font-mono text-base tracking-[0.2em]">{masked}</p>
@@ -264,28 +404,28 @@ function FooterCol({
   links: Array<{ label: string; href?: string }>;
 }) {
   return (
-    <div className="space-y-8">
-      <h5 className="font-bold text-lg tracking-tight text-white">{title}</h5>
-      <div className="flex flex-col gap-4">
+    <div className="space-y-6">
+      <h5 className="text-xs font-semibold tracking-widest text-neutral-500 uppercase">{title}</h5>
+      <nav className="flex flex-col gap-3">
         {links.map((link) =>
           link.href ? (
             <a
               key={link.label}
               href={link.href}
-              className="text-neutral-400 hover:text-[#990FFA] transition-colors text-left font-medium"
+              className="text-sm text-neutral-400 hover:text-white transition-colors"
             >
               {link.label}
             </a>
           ) : (
             <button
               key={link.label}
-              className="text-neutral-400 hover:text-[#990FFA] transition-colors text-left font-medium"
+              className="text-sm text-neutral-400 hover:text-white transition-colors text-left"
             >
               {link.label}
             </button>
           )
         )}
-      </div>
+      </nav>
     </div>
   );
 }
